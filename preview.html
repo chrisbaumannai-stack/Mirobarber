@@ -1,0 +1,1970 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MIRO Barber Shop | Premium Barbershop in Koblenz</title>
+  <meta name="description" content="MIRO Barber Shop in Koblenz – Dein Premium-Barbershop für Herrenhaarschnitte, Bartpflege und klassische Rasuren. Moselweißer Str. 29, 56073 Koblenz.">
+  <meta name="keywords" content="Barbershop Koblenz, Friseur Koblenz, Herrenfriseur, Bartpflege, Rasur, MIRO Barber Shop">
+  <meta property="og:title" content="MIRO Barber Shop | Premium Barbershop in Koblenz">
+  <meta property="og:description" content="Dein Premium-Barbershop für Herrenhaarschnitte, Bartpflege und klassische Rasuren in Koblenz.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+/* ============================================
+   MIRO Barber Shop – Premium Stylesheet
+   ============================================ */
+
+/* --- CSS Variables --- */
+:root {
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #111111;
+  --bg-card: #1a1a1a;
+  --bg-card-hover: #222222;
+  --gold: #c9a96e;
+  --gold-light: #d4b97a;
+  --gold-dark: #a8884d;
+  --white: #ffffff;
+  --gray-100: #f5f5f5;
+  --gray-200: #e0e0e0;
+  --gray-300: #b0b0b0;
+  --gray-400: #808080;
+  --gray-500: #555555;
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body: 'Montserrat', 'Segoe UI', sans-serif;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --shadow-gold: 0 4px 20px rgba(201, 169, 110, 0.15);
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+/* --- Reset & Base --- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--gray-200);
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--gold);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+a:hover {
+  color: var(--gold-light);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* --- Container --- */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* --- Section --- */
+.section {
+  padding: 100px 0;
+  position: relative;
+}
+
+.section:nth-child(even) {
+  background: var(--bg-secondary);
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.section-tag {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+  position: relative;
+  padding: 6px 20px;
+  border: 1px solid rgba(201, 169, 110, 0.3);
+  border-radius: 30px;
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.15;
+  margin-bottom: 20px;
+}
+
+.section-divider {
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-dark));
+  margin: 0 auto;
+  border-radius: 2px;
+}
+
+.section-subtitle {
+  color: var(--gray-300);
+  max-width: 500px;
+  margin: 20px auto 0;
+  font-size: 1rem;
+}
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 20px 0;
+  transition: all var(--transition);
+}
+
+.navbar.scrolled {
+  background: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 12px 0;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  line-height: 1.1;
+}
+
+.logo-text {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: 4px;
+}
+
+.logo-sub {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  font-weight: 500;
+  color: var(--gold);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-link {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--gray-300);
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  transition: color var(--transition);
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gold);
+  transition: width var(--transition);
+}
+
+.nav-link:hover {
+  color: var(--white);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-link.active {
+  color: var(--gold);
+}
+
+.nav-link.active::after {
+  width: 100%;
+}
+
+.nav-cta {
+  background: var(--gold);
+  color: var(--bg-primary) !important;
+  padding: 10px 24px;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: all var(--transition);
+}
+
+.nav-cta::after {
+  display: none;
+}
+
+.nav-cta:hover {
+  background: var(--gold-light);
+  color: var(--bg-primary) !important;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gold);
+}
+
+/* Hamburger */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 1001;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--white);
+  transition: all var(--transition);
+  border-radius: 2px;
+}
+
+.nav-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.nav-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* ============================================
+   HERO
+   ============================================ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-primary);
+}
+
+.hero-bg-animation {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(201, 169, 110, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 50%, rgba(201, 169, 110, 0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 100%, rgba(201, 169, 110, 0.03) 0%, transparent 40%);
+  animation: heroGlow 8s ease-in-out infinite alternate;
+}
+
+@keyframes heroGlow {
+  0% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+/* Barber Pole */
+.barber-pole {
+  position: absolute;
+  width: 20px;
+  height: 100%;
+  top: 0;
+  overflow: hidden;
+  opacity: 0.15;
+}
+
+.barber-pole-left {
+  left: 40px;
+}
+
+.barber-pole-right {
+  right: 40px;
+}
+
+.barber-pole::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 200%;
+  top: -100%;
+  background: repeating-linear-gradient(
+    -45deg,
+    #c9a96e 0px,
+    #c9a96e 10px,
+    transparent 10px,
+    transparent 20px,
+    #fff 20px,
+    #fff 30px,
+    transparent 30px,
+    transparent 40px
+  );
+  animation: barberPole 3s linear infinite;
+}
+
+@keyframes barberPole {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(40px); }
+}
+
+.hero-content {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  padding: 0 24px;
+}
+
+.hero-logo {
+  margin-bottom: 32px;
+}
+
+.logo-svg {
+  width: 160px;
+  height: 160px;
+  margin: 0 auto;
+  animation: logoFloat 6s ease-in-out infinite;
+  filter: drop-shadow(0 0 30px rgba(201, 169, 110, 0.2));
+}
+
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.hero-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title-line {
+  display: block;
+}
+
+.title-line-1 {
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 10vw, 6rem);
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: 12px;
+  line-height: 1;
+}
+
+.title-line-2 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.2rem, 4vw, 2.2rem);
+  font-weight: 400;
+  color: var(--gold);
+  letter-spacing: 8px;
+  margin-top: 8px;
+}
+
+.hero-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.divider-line {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.divider-scissors {
+  opacity: 0.7;
+}
+
+.hero-subtitle {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--gray-300);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.hero-tagline {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--gold);
+  opacity: 0.8;
+  margin-bottom: 40px;
+}
+
+.hero-cta-group {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Scroll Indicator */
+.hero-scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.5;
+  animation: scrollBounce 2s ease-in-out infinite;
+}
+
+.hero-scroll-indicator span {
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gray-400);
+}
+
+.scroll-arrow {
+  width: 1px;
+  height: 30px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 36px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: var(--bg-primary);
+  box-shadow: 0 4px 15px rgba(201, 169, 110, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(201, 169, 110, 0.4);
+  color: var(--bg-primary);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--gold);
+  border: 2px solid var(--gold);
+}
+
+.btn-outline:hover {
+  background: var(--gold);
+  color: var(--bg-primary);
+  transform: translateY(-3px);
+}
+
+.btn-whatsapp {
+  background: #25D366;
+  color: var(--white);
+  font-size: 1rem;
+  padding: 18px 40px;
+  width: 100%;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+}
+
+.btn-whatsapp:hover {
+  background: #20bd5a;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+  color: var(--white);
+}
+
+.btn-sm {
+  padding: 10px 24px;
+  font-size: 0.8rem;
+}
+
+/* ============================================
+   ABOUT
+   ============================================ */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.about-lead {
+  font-size: 1.25rem;
+  color: var(--white);
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.about-lead strong {
+  color: var(--gold);
+}
+
+.about-text p {
+  margin-bottom: 16px;
+  color: var(--gray-300);
+}
+
+.about-values {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.value-item {
+  text-align: center;
+  padding: 24px 16px;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  border: 1px solid rgba(201, 169, 110, 0.1);
+  transition: all var(--transition);
+}
+
+.value-item:hover {
+  transform: translateY(-4px);
+  border-color: rgba(201, 169, 110, 0.3);
+  box-shadow: var(--shadow-gold);
+}
+
+.value-icon {
+  margin-bottom: 12px;
+}
+
+.value-item h3 {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.value-item p {
+  font-size: 0.85rem;
+  color: var(--gray-400);
+  line-height: 1.5;
+}
+
+.about-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-image-placeholder {
+  width: 100%;
+  aspect-ratio: 3/4;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  border: 2px dashed rgba(201, 169, 110, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  color: var(--gray-500);
+  font-size: 0.9rem;
+}
+
+/* ============================================
+   SERVICES
+   ============================================ */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.service-card {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 40px 30px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-dark));
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.service-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(201, 169, 110, 0.2);
+  box-shadow: var(--shadow);
+}
+
+.service-card:hover::before {
+  opacity: 1;
+}
+
+.service-icon {
+  margin-bottom: 20px;
+}
+
+.service-name {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+
+.service-desc {
+  font-size: 0.9rem;
+  color: var(--gray-400);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.service-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.service-duration {
+  font-size: 0.8rem;
+  color: var(--gray-500);
+}
+
+.service-price {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.services-note {
+  text-align: center;
+  margin-top: 40px;
+  padding: 20px;
+  background: rgba(201, 169, 110, 0.05);
+  border: 1px solid rgba(201, 169, 110, 0.15);
+  border-radius: var(--radius-sm);
+}
+
+.services-note p {
+  color: var(--gray-400);
+  font-size: 0.9rem;
+}
+
+/* ============================================
+   GALLERY
+   ============================================ */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.gallery-item {
+  border-radius: var(--radius);
+  overflow: hidden;
+  aspect-ratio: 1;
+  transition: transform var(--transition);
+}
+
+.gallery-item:hover {
+  transform: scale(1.02);
+}
+
+.gallery-item-wide {
+  grid-column: span 2;
+  aspect-ratio: 2/1;
+}
+
+.gallery-placeholder {
+  width: 100%;
+  height: 100%;
+  background: var(--bg-card);
+  border: 2px dashed rgba(201, 169, 110, 0.15);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--gray-500);
+  font-size: 0.85rem;
+}
+
+.gallery-note {
+  text-align: center;
+  margin-top: 32px;
+  color: var(--gray-500);
+  font-style: italic;
+}
+
+/* ============================================
+   HOURS
+   ============================================ */
+.hours-card {
+  max-width: 600px;
+  margin: 0 auto;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 48px 40px;
+  border: 1px solid rgba(201, 169, 110, 0.15);
+  box-shadow: var(--shadow);
+}
+
+.hours-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.hours-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.hours-row:last-child {
+  border-bottom: none;
+}
+
+.hours-day {
+  font-weight: 600;
+  color: var(--white);
+  min-width: 120px;
+  font-size: 0.95rem;
+}
+
+.hours-dots {
+  flex: 1;
+  border-bottom: 1px dotted var(--gray-500);
+  margin-bottom: 4px;
+}
+
+.hours-time {
+  color: var(--gold);
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-align: right;
+  min-width: 120px;
+}
+
+.hours-closed .hours-time {
+  color: var(--gray-500);
+}
+
+.hours-note {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(201, 169, 110, 0.15);
+  text-align: center;
+}
+
+.hours-note p {
+  color: var(--gray-400);
+  margin-bottom: 16px;
+  font-size: 0.95rem;
+}
+
+/* ============================================
+   BOOKING
+   ============================================ */
+.booking-card {
+  max-width: 560px;
+  margin: 0 auto;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 48px 40px;
+  border: 1px solid rgba(201, 169, 110, 0.15);
+  box-shadow: var(--shadow);
+}
+
+.booking-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--gray-300);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.form-group input,
+.form-group select {
+  padding: 14px 18px;
+  background: var(--bg-primary);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-sm);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  transition: border-color var(--transition);
+  -webkit-appearance: none;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.1);
+}
+
+.form-group input::placeholder {
+  color: var(--gray-500);
+}
+
+.form-group select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23c9a96e' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
+}
+
+.form-group select option {
+  background: var(--bg-primary);
+  color: var(--white);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.booking-direct {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
+}
+
+.booking-direct p {
+  font-size: 0.85rem;
+  color: var(--gray-500);
+  margin-bottom: 12px;
+}
+
+.booking-direct-links {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+/* ============================================
+   CONTACT
+   ============================================ */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.contact-item {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.contact-icon {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(201, 169, 110, 0.1);
+  border-radius: 50%;
+  border: 1px solid rgba(201, 169, 110, 0.2);
+}
+
+.contact-item h3 {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+
+.contact-item p {
+  color: var(--gray-400);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.contact-item a {
+  color: var(--gold);
+}
+
+.contact-map {
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid rgba(201, 169, 110, 0.15);
+}
+
+.contact-map iframe {
+  display: block;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.footer {
+  background: var(--bg-primary);
+  border-top: 1px solid rgba(201, 169, 110, 0.1);
+  padding: 64px 0 32px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 48px;
+}
+
+.footer-logo {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: 4px;
+  display: block;
+}
+
+.footer-logo-sub {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--gold);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  display: block;
+  margin-top: 2px;
+}
+
+.footer-tagline {
+  color: var(--gray-500);
+  font-size: 0.9rem;
+  margin-top: 12px;
+}
+
+.footer-links h4,
+.footer-contact h4 {
+  font-family: var(--font-heading);
+  color: var(--white);
+  font-size: 1rem;
+  margin-bottom: 16px;
+}
+
+.footer-links ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-links a {
+  color: var(--gray-400);
+  font-size: 0.9rem;
+  transition: color var(--transition);
+}
+
+.footer-links a:hover {
+  color: var(--gold);
+}
+
+.footer-contact p {
+  color: var(--gray-400);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.footer-contact a {
+  color: var(--gold);
+}
+
+.footer-bottom {
+  padding-top: 32px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  text-align: center;
+}
+
+.footer-bottom p {
+  font-size: 0.8rem;
+  color: var(--gray-500);
+}
+
+/* ============================================
+   FLOATING WHATSAPP
+   ============================================ */
+.whatsapp-float {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 64px;
+  height: 64px;
+  background: #25D366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+  z-index: 999;
+  transition: all var(--transition);
+  animation: whatsappPulse 3s ease-in-out infinite;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 30px rgba(37, 211, 102, 0.5);
+}
+
+.whatsapp-tooltip {
+  position: absolute;
+  right: 76px;
+  background: var(--bg-card);
+  color: var(--white);
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition);
+  box-shadow: var(--shadow);
+}
+
+.whatsapp-float:hover .whatsapp-tooltip {
+  opacity: 1;
+}
+
+@keyframes whatsappPulse {
+  0%, 100% { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4); }
+  50% { box-shadow: 0 4px 30px rgba(37, 211, 102, 0.6), 0 0 0 12px rgba(37, 211, 102, 0.1); }
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 1024px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .about-image {
+    order: -1;
+  }
+
+  .about-image-placeholder {
+    aspect-ratio: 16/9;
+    max-height: 300px;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  .footer-brand {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 72px 0;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  .nav-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    max-width: 360px;
+    height: 100vh;
+    background: rgba(10, 10, 10, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    transition: right var(--transition);
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+  }
+
+  .nav-menu.open {
+    right: 0;
+  }
+
+  .nav-link {
+    font-size: 1.1rem;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .gallery-item-wide {
+    grid-column: span 2;
+  }
+
+  .about-values {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-card {
+    padding: 32px 24px;
+  }
+
+  .hours-card {
+    padding: 32px 24px;
+  }
+
+  .hero-cta-group {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .barber-pole {
+    display: none;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-brand {
+    grid-column: span 1;
+  }
+
+  .hours-day {
+    min-width: 100px;
+    font-size: 0.85rem;
+  }
+
+  .hours-time {
+    min-width: 100px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .title-line-1 {
+    letter-spacing: 6px;
+  }
+
+  .title-line-2 {
+    letter-spacing: 4px;
+  }
+
+  .logo-svg {
+    width: 120px;
+    height: 120px;
+  }
+
+  .service-card {
+    padding: 28px 20px;
+  }
+
+  .whatsapp-float {
+    bottom: 20px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+  }
+
+  .whatsapp-tooltip {
+    display: none;
+  }
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="nav-logo">
+        <span class="logo-text">MIRO</span>
+        <span class="logo-sub">Barber Shop</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="#hero" class="nav-link">Start</a></li>
+        <li><a href="#about" class="nav-link">Über Uns</a></li>
+        <li><a href="#services" class="nav-link">Services</a></li>
+        <li><a href="#gallery" class="nav-link">Galerie</a></li>
+        <li><a href="#hours" class="nav-link">Öffnungszeiten</a></li>
+        <li><a href="#contact" class="nav-link">Kontakt</a></li>
+        <li><a href="#booking" class="nav-link nav-cta">Termin buchen</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-bg-animation"></div>
+    <div class="barber-pole barber-pole-left"></div>
+    <div class="barber-pole barber-pole-right"></div>
+    <div class="hero-content">
+      <div class="hero-logo">
+        <svg viewBox="0 0 200 200" class="logo-svg" aria-label="MIRO Barber Shop Logo">
+          <circle cx="100" cy="100" r="95" fill="none" stroke="#c9a96e" stroke-width="2"/>
+          <circle cx="100" cy="100" r="85" fill="none" stroke="#c9a96e" stroke-width="0.5"/>
+          <!-- Stylized barber silhouette -->
+          <g transform="translate(100,95) scale(0.7)">
+            <!-- Head -->
+            <ellipse cx="0" cy="-25" rx="35" ry="42" fill="#c9a96e"/>
+            <!-- Hair -->
+            <path d="M-30,-55 Q-25,-80 0,-85 Q25,-80 35,-55 Q30,-65 20,-68 Q10,-72 0,-70 Q-10,-72 -20,-68 Q-30,-65 -30,-55Z" fill="#1a1a1a"/>
+            <path d="M-5,-85 Q5,-95 15,-85 Q20,-78 25,-72 Q15,-80 5,-82 Q-5,-80 -5,-85Z" fill="#1a1a1a"/>
+            <!-- Beard -->
+            <path d="M-28,-10 Q-30,15 -20,35 Q-10,50 0,55 Q10,50 20,35 Q30,15 28,-10" fill="#1a1a1a"/>
+            <!-- Mustache -->
+            <path d="M-20,-5 Q-10,-12 0,-8 Q10,-12 20,-5 Q10,-2 0,-5 Q-10,-2 -20,-5Z" fill="#1a1a1a"/>
+            <!-- Eyes -->
+            <ellipse cx="-12" cy="-25" rx="4" ry="3" fill="#1a1a1a"/>
+            <ellipse cx="12" cy="-25" rx="4" ry="3" fill="#1a1a1a"/>
+          </g>
+          <!-- Razor blade decoration -->
+          <rect x="70" y="160" width="60" height="20" rx="3" fill="none" stroke="#c9a96e" stroke-width="1.5"/>
+          <rect x="90" y="165" width="20" height="10" rx="2" fill="none" stroke="#c9a96e" stroke-width="1"/>
+        </svg>
+      </div>
+      <h1 class="hero-title">
+        <span class="title-line title-line-1">MIRO</span>
+        <span class="title-line title-line-2">Barber Shop</span>
+      </h1>
+      <div class="hero-divider">
+        <span class="divider-line"></span>
+        <svg class="divider-scissors" viewBox="0 0 24 24" width="24" height="24">
+          <path d="M6 2C4.9 2 4 2.9 4 4S4.9 6 6 6 8 5.1 8 4 7.1 2 6 2ZM6 18C4.9 18 4 18.9 4 20S4.9 22 6 22 8 21.1 8 20 7.1 18 6 18ZM14.5 12L20 7.5 18.5 6 12 12 18.5 18 20 16.5 14.5 12Z" fill="#c9a96e"/>
+        </svg>
+        <span class="divider-line"></span>
+      </div>
+      <p class="hero-subtitle">Premium Barbershop in Koblenz</p>
+      <p class="hero-tagline">Wo Tradition auf modernen Style trifft</p>
+      <div class="hero-cta-group">
+        <a href="#booking" class="btn btn-primary">Termin vereinbaren</a>
+        <a href="#services" class="btn btn-outline">Unsere Services</a>
+      </div>
+    </div>
+    <div class="hero-scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="section about" id="about">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-tag">Über Uns</span>
+        <h2 class="section-title">Unser Traum.<br>Eure Styles.</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="about-grid">
+        <div class="about-text fade-in">
+          <p class="about-lead">Wir sind drei Brüder mit einer gemeinsamen Leidenschaft: <strong>den perfekten Schnitt</strong>.</p>
+          <p>Was als Traum begann, ist heute Realität – unser eigener Barbershop mitten in Koblenz. Bei MIRO Barber Shop verbinden wir traditionelles Barber-Handwerk mit modernen Trends. Jeder Schnitt, jede Rasur und jedes Styling ist für uns mehr als nur Arbeit – es ist unsere Kunst.</p>
+          <p>Wir glauben daran, dass ein guter Haarschnitt mehr kann als nur gut aussehen. Er gibt dir Selbstvertrauen, lässt dich strahlen und macht deinen Tag. Genau das ist unser Anspruch bei jedem einzelnen Kunden.</p>
+          <div class="about-values">
+            <div class="value-item fade-in">
+              <div class="value-icon">
+                <svg viewBox="0 0 24 24" width="32" height="32"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#c9a96e"/></svg>
+              </div>
+              <h3>Familie</h3>
+              <p>Drei Brüder, ein Traum – bei uns bist du nicht nur Kunde, sondern Teil der Familie.</p>
+            </div>
+            <div class="value-item fade-in">
+              <div class="value-icon">
+                <svg viewBox="0 0 24 24" width="32" height="32"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2Z" fill="#c9a96e"/></svg>
+              </div>
+              <h3>Qualität</h3>
+              <p>Präzision und Perfektion bei jedem Schnitt – nichts weniger als das Beste.</p>
+            </div>
+            <div class="value-item fade-in">
+              <div class="value-icon">
+                <svg viewBox="0 0 24 24" width="32" height="32"><path d="M13 2.05v2.02c3.95.49 7 3.85 7 7.93 0 3.21-1.92 6-4.72 7.28L13 20v2.05c4.95-.5 8.82-4.72 8.96-9.81L22 12c0-5.18-3.95-9.45-9-9.95zM3.94 11H2.02c.26 2.84 1.65 5.33 3.7 7.04l1.42-1.42C5.69 15.3 4.45 13.3 3.94 11zM11 2.05C6.05 2.55 2.18 6.77 2.04 11.86L2 12c0 5.18 3.95 9.45 9 9.95v-2.02c-3.95-.49-7-3.85-7-7.93 0-3.73 2.56-6.87 6.02-7.75L11 2.05z" fill="#c9a96e"/></svg>
+              </div>
+              <h3>Leidenschaft</h3>
+              <p>Barbering ist nicht nur unser Beruf – es ist unsere Berufung.</p>
+            </div>
+          </div>
+        </div>
+        <div class="about-image fade-in">
+          <div class="about-image-placeholder">
+            <svg viewBox="0 0 24 24" width="64" height="64"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" fill="#c9a96e"/></svg>
+            <p>Foto kommt bald</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="section services" id="services">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-tag">Services & Preise</span>
+        <h2 class="section-title">Unsere<br>Leistungen</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="services-grid">
+        <div class="service-card fade-in">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" width="40" height="40"><path d="M9.5 16q-2.725 0-4.612-1.888T3 9.5q0-2.725 1.888-4.612T9.5 3q2.725 0 4.613 1.888T16 9.5q0 1.1-.35 2.075T14.7 13.3l5.6 5.6q.275.275.275.7t-.275.7q-.275.275-.7.275t-.7-.275l-5.6-5.6q-.75.6-1.725.95T9.5 16z" fill="#c9a96e"/></svg>
+          </div>
+          <h3 class="service-name">Herrenhaarschnitt</h3>
+          <p class="service-desc">Klassisch oder trendig – wir finden den perfekten Style für dich. Inklusive Waschen und Styling.</p>
+          <div class="service-details">
+            <span class="service-duration">ca. 30 Min.</span>
+            <span class="service-price">ab 25&euro;</span>
+          </div>
+        </div>
+
+        <div class="service-card fade-in">
+          <div class="service-icon">
+            <svg viewBox="0 0 100 100" width="40" height="40"><rect x="20" y="35" width="60" height="30" rx="5" fill="none" stroke="#c9a96e" stroke-width="4"/><rect x="38" y="43" width="24" height="14" rx="3" fill="none" stroke="#c9a96e" stroke-width="3"/></svg>
+          </div>
+          <h3 class="service-name">Bartpflege & Trimmen</h3>
+          <p class="service-desc">Dein Bart in Bestform. Konturenschnitt, Trimmen und Pflege für den gepflegten Look.</p>
+          <div class="service-details">
+            <span class="service-duration">ca. 20 Min.</span>
+            <span class="service-price">ab 15&euro;</span>
+          </div>
+        </div>
+
+        <div class="service-card fade-in">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" width="40" height="40"><path d="M6 2v6h.01L6 8.01 10 12l-4 4 .01.01H6V22h12v-5.99h-.01L18 16l-4-4 4-3.99-.01-.01H18V2H6z" fill="#c9a96e"/></svg>
+          </div>
+          <h3 class="service-name">Nassrasur</h3>
+          <p class="service-desc">Die klassische Nassrasur mit heißem Tuch – ein Erlebnis für echte Gentlemen.</p>
+          <div class="service-details">
+            <span class="service-duration">ca. 30 Min.</span>
+            <span class="service-price">ab 20&euro;</span>
+          </div>
+        </div>
+
+        <div class="service-card fade-in">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" width="40" height="40"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="#c9a96e"/></svg>
+          </div>
+          <h3 class="service-name">Komplett-Paket</h3>
+          <p class="service-desc">Haarschnitt + Bartpflege + Styling – das volle Programm für deinen neuen Look.</p>
+          <div class="service-details">
+            <span class="service-duration">ca. 50 Min.</span>
+            <span class="service-price">ab 35&euro;</span>
+          </div>
+        </div>
+
+        <div class="service-card fade-in">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" width="40" height="40"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z" fill="#c9a96e"/></svg>
+          </div>
+          <h3 class="service-name">Kinder & Jugendliche</h3>
+          <p class="service-desc">Stylische Haarschnitte für die junge Generation. Coole Cuts zu fairen Preisen.</p>
+          <div class="service-details">
+            <span class="service-duration">ca. 25 Min.</span>
+            <span class="service-price">ab 18&euro;</span>
+          </div>
+        </div>
+
+        <div class="service-card fade-in">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" width="40" height="40"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 00.12-.61l-1.92-3.32a.488.488 0 00-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 00-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58a.49.49 0 00-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z" fill="#c9a96e"/></svg>
+          </div>
+          <h3 class="service-name">Augenbrauen & Extras</h3>
+          <p class="service-desc">Augenbrauen zupfen, Gesichtsmaske, Haarkur – für den extra Touch.</p>
+          <div class="service-details">
+            <span class="service-duration">variabel</span>
+            <span class="service-price">ab 5&euro;</span>
+          </div>
+        </div>
+      </div>
+      <div class="services-note fade-in">
+        <p>Alle Preise sind Richtwerte. Sprich uns gerne an für individuelle Beratung!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section class="section gallery" id="gallery">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-tag">Galerie</span>
+        <h2 class="section-title">Unsere<br>Arbeiten</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item fade-in">
+          <div class="gallery-placeholder">
+            <svg viewBox="0 0 24 24" width="48" height="48"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" fill="#c9a96e"/></svg>
+            <span>Foto 1</span>
+          </div>
+        </div>
+        <div class="gallery-item fade-in">
+          <div class="gallery-placeholder">
+            <svg viewBox="0 0 24 24" width="48" height="48"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" fill="#c9a96e"/></svg>
+            <span>Foto 2</span>
+          </div>
+        </div>
+        <div class="gallery-item fade-in">
+          <div class="gallery-placeholder">
+            <svg viewBox="0 0 24 24" width="48" height="48"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" fill="#c9a96e"/></svg>
+            <span>Foto 3</span>
+          </div>
+        </div>
+        <div class="gallery-item fade-in">
+          <div class="gallery-placeholder">
+            <svg viewBox="0 0 24 24" width="48" height="48"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" fill="#c9a96e"/></svg>
+            <span>Foto 4</span>
+          </div>
+        </div>
+        <div class="gallery-item gallery-item-wide fade-in">
+          <div class="gallery-placeholder">
+            <svg viewBox="0 0 24 24" width="48" height="48"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" fill="#c9a96e"/></svg>
+            <span>Foto 5</span>
+          </div>
+        </div>
+        <div class="gallery-item fade-in">
+          <div class="gallery-placeholder">
+            <svg viewBox="0 0 24 24" width="48" height="48"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" fill="#c9a96e"/></svg>
+            <span>Foto 6</span>
+          </div>
+        </div>
+      </div>
+      <p class="gallery-note fade-in">Fotos werden bald hinzugefügt – stay tuned!</p>
+    </div>
+  </section>
+
+  <!-- Hours Section -->
+  <section class="section hours" id="hours">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-tag">Öffnungszeiten</span>
+        <h2 class="section-title">Wann wir<br>für dich da sind</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="hours-card fade-in">
+        <div class="hours-grid">
+          <div class="hours-row">
+            <span class="hours-day">Montag</span>
+            <span class="hours-dots"></span>
+            <span class="hours-time">09:00 – 18:00</span>
+          </div>
+          <div class="hours-row">
+            <span class="hours-day">Dienstag</span>
+            <span class="hours-dots"></span>
+            <span class="hours-time">09:00 – 18:00</span>
+          </div>
+          <div class="hours-row">
+            <span class="hours-day">Mittwoch</span>
+            <span class="hours-dots"></span>
+            <span class="hours-time">09:00 – 18:00</span>
+          </div>
+          <div class="hours-row">
+            <span class="hours-day">Donnerstag</span>
+            <span class="hours-dots"></span>
+            <span class="hours-time">09:00 – 18:00</span>
+          </div>
+          <div class="hours-row">
+            <span class="hours-day">Freitag</span>
+            <span class="hours-dots"></span>
+            <span class="hours-time">09:00 – 18:00</span>
+          </div>
+          <div class="hours-row">
+            <span class="hours-day">Samstag</span>
+            <span class="hours-dots"></span>
+            <span class="hours-time">09:00 – 16:00</span>
+          </div>
+          <div class="hours-row hours-closed">
+            <span class="hours-day">Sonntag</span>
+            <span class="hours-dots"></span>
+            <span class="hours-time">Geschlossen</span>
+          </div>
+        </div>
+        <div class="hours-note">
+          <p>Termine auch nach Vereinbarung möglich!</p>
+          <a href="#booking" class="btn btn-primary btn-sm">Jetzt Termin buchen</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking Section -->
+  <section class="section booking" id="booking">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-tag">Terminbuchung</span>
+        <h2 class="section-title">Dein Termin<br>per WhatsApp</h2>
+        <div class="section-divider"></div>
+        <p class="section-subtitle">Wähle deinen Service und Wunschtermin – wir antworten dir schnell!</p>
+      </div>
+      <div class="booking-card fade-in">
+        <form id="bookingForm" class="booking-form">
+          <div class="form-group">
+            <label for="bookingName">Dein Name</label>
+            <input type="text" id="bookingName" placeholder="Wie heißt du?" required>
+          </div>
+          <div class="form-group">
+            <label for="bookingService">Service</label>
+            <select id="bookingService" required>
+              <option value="">Service wählen...</option>
+              <option value="Herrenhaarschnitt">Herrenhaarschnitt (ab 25€)</option>
+              <option value="Bartpflege">Bartpflege & Trimmen (ab 15€)</option>
+              <option value="Nassrasur">Nassrasur (ab 20€)</option>
+              <option value="Komplett-Paket">Komplett-Paket (ab 35€)</option>
+              <option value="Kinder/Jugendliche">Kinder & Jugendliche (ab 18€)</option>
+              <option value="Sonstiges">Sonstiges</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="bookingDate">Wunschdatum</label>
+              <input type="date" id="bookingDate" required>
+            </div>
+            <div class="form-group">
+              <label for="bookingTime">Wunschzeit</label>
+              <select id="bookingTime" required>
+                <option value="">Zeit wählen...</option>
+                <option value="09:00">09:00</option>
+                <option value="09:30">09:30</option>
+                <option value="10:00">10:00</option>
+                <option value="10:30">10:30</option>
+                <option value="11:00">11:00</option>
+                <option value="11:30">11:30</option>
+                <option value="12:00">12:00</option>
+                <option value="12:30">12:30</option>
+                <option value="13:00">13:00</option>
+                <option value="13:30">13:30</option>
+                <option value="14:00">14:00</option>
+                <option value="14:30">14:30</option>
+                <option value="15:00">15:00</option>
+                <option value="15:30">15:30</option>
+                <option value="16:00">16:00</option>
+                <option value="16:30">16:30</option>
+                <option value="17:00">17:00</option>
+                <option value="17:30">17:30</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-whatsapp">
+            <svg viewBox="0 0 24 24" width="24" height="24" class="whatsapp-icon">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="currentColor"/>
+            </svg>
+            Termin via WhatsApp senden
+          </button>
+        </form>
+        <div class="booking-direct">
+          <p>Oder direkt anrufen / schreiben:</p>
+          <div class="booking-direct-links">
+            <a href="https://wa.me/4901627482992?text=Hallo!%20Ich%20möchte%20gerne%20einen%20Termin%20vereinbaren." class="btn btn-outline btn-sm" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" width="18" height="18" class="whatsapp-icon"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="currentColor"/></svg>
+              WhatsApp
+            </a>
+            <a href="tel:+4901627482992" class="btn btn-outline btn-sm">
+              <svg viewBox="0 0 24 24" width="18" height="18"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="currentColor"/></svg>
+              Anrufen
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section contact" id="contact">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-tag">Kontakt</span>
+        <h2 class="section-title">Komm<br>vorbei</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info fade-in">
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24" width="28" height="28"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#c9a96e"/></svg>
+            </div>
+            <div>
+              <h3>Adresse</h3>
+              <p>Moselweißer Str. 29<br>56073 Koblenz</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24" width="28" height="28"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="#c9a96e"/></svg>
+            </div>
+            <div>
+              <h3>Telefon</h3>
+              <p><a href="tel:+4901627482992">0162 748 2992</a></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24" width="28" height="28"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="#c9a96e"/></svg>
+            </div>
+            <div>
+              <h3>WhatsApp</h3>
+              <p><a href="https://wa.me/4901627482992" target="_blank" rel="noopener">Nachricht senden</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="contact-map fade-in">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2534.5!2d7.576!3d50.347!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bfbd1e3c5c0b0d%3A0x0!2sMoselwei%C3%9Fer%20Str.%2029%2C%2056073%20Koblenz!5e0!3m2!1sde!2sde!4v1"
+            width="100%"
+            height="400"
+            style="border:0; border-radius: 12px;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="MIRO Barber Shop Standort">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <span class="footer-logo">MIRO</span>
+          <span class="footer-logo-sub">Barber Shop</span>
+          <p class="footer-tagline">Premium Barbershop in Koblenz</p>
+        </div>
+        <div class="footer-links">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="#about">Über Uns</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#gallery">Galerie</a></li>
+            <li><a href="#hours">Öffnungszeiten</a></li>
+            <li><a href="#contact">Kontakt</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h4>Kontakt</h4>
+          <p>Moselweißer Str. 29<br>56073 Koblenz</p>
+          <p><a href="tel:+4901627482992">0162 748 2992</a></p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 MIRO Barber Shop. Alle Rechte vorbehalten.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/4901627482992?text=Hallo!%20Ich%20möchte%20gerne%20einen%20Termin%20vereinbaren."
+     class="whatsapp-float"
+     target="_blank"
+     rel="noopener"
+     aria-label="WhatsApp Chat starten">
+    <svg viewBox="0 0 24 24" width="32" height="32">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="#fff"/>
+    </svg>
+    <span class="whatsapp-tooltip">Termin buchen</span>
+  </a>
+
+  <script>
+/* ============================================
+   MIRO Barber Shop – Main JavaScript
+   ============================================ */
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  // --- Navbar scroll effect ---
+  const navbar = document.getElementById('navbar');
+  const handleScroll = () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  };
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  handleScroll();
+
+  // --- Mobile menu toggle ---
+  const navToggle = document.getElementById('navToggle');
+  const navMenu = document.getElementById('navMenu');
+
+  navToggle.addEventListener('click', () => {
+    navToggle.classList.toggle('active');
+    navMenu.classList.toggle('open');
+    document.body.style.overflow = navMenu.classList.contains('open') ? 'hidden' : '';
+  });
+
+  // Close menu on link click
+  navMenu.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      navToggle.classList.remove('active');
+      navMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // --- Active nav link on scroll ---
+  const sections = document.querySelectorAll('.section, .hero');
+  const navLinks = document.querySelectorAll('.nav-link:not(.nav-cta)');
+
+  const observerNav = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { threshold: 0.3, rootMargin: '-80px 0px 0px 0px' });
+
+  sections.forEach(section => observerNav.observe(section));
+
+  // --- Fade-in animations on scroll ---
+  const fadeElements = document.querySelectorAll('.fade-in');
+
+  const observerFade = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observerFade.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  fadeElements.forEach(el => observerFade.observe(el));
+
+  // --- Set minimum date for booking ---
+  const dateInput = document.getElementById('bookingDate');
+  if (dateInput) {
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.setAttribute('min', today);
+    dateInput.value = today;
+  }
+
+  // --- WhatsApp booking form ---
+  const bookingForm = document.getElementById('bookingForm');
+
+  bookingForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById('bookingName').value.trim();
+    const service = document.getElementById('bookingService').value;
+    const date = document.getElementById('bookingDate').value;
+    const time = document.getElementById('bookingTime').value;
+
+    if (!name || !service || !date || !time) return;
+
+    // Format date nicely
+    const dateObj = new Date(date + 'T00:00:00');
+    const formattedDate = dateObj.toLocaleDateString('de-DE', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+
+    const message =
+      `Hallo! Ich möchte gerne einen Termin vereinbaren.\n\n` +
+      `Name: ${name}\n` +
+      `Service: ${service}\n` +
+      `Wunschtermin: ${formattedDate}\n` +
+      `Wunschzeit: ${time} Uhr\n\n` +
+      `Vielen Dank!`;
+
+    const encoded = encodeURIComponent(message);
+    const waUrl = `https://wa.me/4901627482992?text=${encoded}`;
+
+    window.open(waUrl, '_blank', 'noopener');
+  });
+
+  // --- Smooth scroll for anchor links ---
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', (e) => {
+      const targetId = anchor.getAttribute('href');
+      if (targetId === '#') return;
+
+      const target = document.querySelector(targetId);
+      if (target) {
+        e.preventDefault();
+        const offset = 80;
+        const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    });
+  });
+
+  // --- Hero entrance animations ---
+  const heroElements = document.querySelectorAll('.hero-logo, .hero-title, .hero-divider, .hero-subtitle, .hero-tagline, .hero-cta-group');
+  heroElements.forEach((el, i) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = `opacity 0.7s ease ${i * 0.15}s, transform 0.7s ease ${i * 0.15}s`;
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+      });
+    });
+  });
+
+});
+
+  </script>
+</body>
+</html>
