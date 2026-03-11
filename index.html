@@ -333,7 +333,8 @@
   </section>
 
   <!-- Booking Section -->
-  <section class="section booking" id="booking">
+  <!-- BOOKING_MODE: 'whatsapp' = einfaches WhatsApp-Formular, 'system' = Buchungssystem -->
+  <section class="section booking" id="booking" data-booking-mode="whatsapp">
     <div class="container">
       <div class="section-header fade-in">
         <span class="section-tag">Terminbuchung</span>
@@ -341,7 +342,16 @@
         <div class="section-divider"></div>
         <p class="section-subtitle">Wähle deinen Service und Wunschtermin – wir antworten dir schnell!</p>
       </div>
-      <div class="booking-card fade-in">
+
+      <!-- Option B: Buchungssystem (hidden by default, aktiviert via data-booking-mode="system") -->
+      <div class="booking-system-cta fade-in" id="bookingSystemCta" style="display:none;">
+        <p class="booking-system-text">Buche deinen Termin online – wähle Service, Tag und Uhrzeit und erhalte eine Bestätigung per WhatsApp.</p>
+        <a href="booking/index.html" class="btn btn-primary btn-lg">Online Termin buchen</a>
+        <p class="booking-system-note">Oder schreib uns direkt per <a href="https://wa.me/4901627482992?text=Hallo!%20Ich%20möchte%20gerne%20einen%20Termin%20vereinbaren." target="_blank" rel="noopener">WhatsApp</a></p>
+      </div>
+
+      <!-- Option A: WhatsApp-Formular (default) -->
+      <div class="booking-card fade-in" id="bookingWhatsapp">
         <form id="bookingForm" class="booking-form">
           <div class="form-group">
             <label for="bookingName">Dein Name</label>
@@ -412,6 +422,21 @@
       </div>
     </div>
   </section>
+
+  <script>
+    // Booking Mode Switch: Ändere 'whatsapp' zu 'system' um das Buchungssystem zu aktivieren
+    (function() {
+      const section = document.getElementById('booking');
+      const mode = section?.getAttribute('data-booking-mode');
+      if (mode === 'system') {
+        document.getElementById('bookingWhatsapp')?.style.setProperty('display', 'none');
+        document.getElementById('bookingSystemCta')?.style.setProperty('display', 'block');
+        // Update title
+        const title = section.querySelector('.section-title');
+        if (title) title.innerHTML = 'Termin<br>online buchen';
+      }
+    })();
+  </script>
 
   <!-- Contact Section -->
   <section class="section contact" id="contact">

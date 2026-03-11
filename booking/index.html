@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Termin buchen | MIRO Barber Shop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/booking.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="booking-header">
+    <a href="../index.html" class="back-link">← Zurück</a>
+    <div class="header-logo">
+      <span class="logo-text">MIRO</span>
+      <span class="logo-sub">Barber Shop</span>
+    </div>
+  </header>
+
+  <main class="booking-container">
+    <h1 class="booking-title">Termin buchen</h1>
+    <p class="booking-subtitle">Wähle deinen Service, Tag und Uhrzeit</p>
+
+    <!-- Progress Steps -->
+    <div class="progress-bar">
+      <div class="step active" data-step="1">
+        <span class="step-number">1</span>
+        <span class="step-label">Service</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step" data-step="2">
+        <span class="step-number">2</span>
+        <span class="step-label">Datum</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step" data-step="3">
+        <span class="step-number">3</span>
+        <span class="step-label">Uhrzeit</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step" data-step="4">
+        <span class="step-number">4</span>
+        <span class="step-label">Bestätigen</span>
+      </div>
+    </div>
+
+    <!-- Step 1: Service Selection -->
+    <section class="booking-step" id="step-1">
+      <h2 class="step-title">Wähle deinen Service</h2>
+      <div class="service-grid" id="serviceGrid">
+        <!-- Filled by JS -->
+      </div>
+    </section>
+
+    <!-- Step 2: Date Selection -->
+    <section class="booking-step hidden" id="step-2">
+      <h2 class="step-title">Wähle ein Datum</h2>
+      <div class="calendar-nav">
+        <button class="cal-nav-btn" id="prevWeek">‹</button>
+        <span class="cal-week-label" id="weekLabel"></span>
+        <button class="cal-nav-btn" id="nextWeek">‹</button>
+      </div>
+      <div class="date-grid" id="dateGrid">
+        <!-- Filled by JS -->
+      </div>
+    </section>
+
+    <!-- Step 3: Time Selection -->
+    <section class="booking-step hidden" id="step-3">
+      <h2 class="step-title">Wähle eine Uhrzeit</h2>
+      <p class="selected-date-label" id="selectedDateLabel"></p>
+      <div class="time-grid" id="timeGrid">
+        <!-- Filled by JS -->
+      </div>
+    </section>
+
+    <!-- Step 4: Confirmation -->
+    <section class="booking-step hidden" id="step-4">
+      <h2 class="step-title">Deine Buchung</h2>
+      <div class="summary-card">
+        <div class="summary-row">
+          <span class="summary-label">Service</span>
+          <span class="summary-value" id="summaryService"></span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-label">Datum</span>
+          <span class="summary-value" id="summaryDate"></span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-label">Uhrzeit</span>
+          <span class="summary-value" id="summaryTime"></span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-label">Dauer</span>
+          <span class="summary-value" id="summaryDuration"></span>
+        </div>
+        <div class="summary-row total">
+          <span class="summary-label">Preis</span>
+          <span class="summary-value" id="summaryPrice"></span>
+        </div>
+      </div>
+
+      <div class="customer-form">
+        <h3 class="form-title">Deine Daten</h3>
+        <div class="form-group">
+          <label for="customerName">Name *</label>
+          <input type="text" id="customerName" placeholder="Dein Name" required>
+        </div>
+        <div class="form-group">
+          <label for="customerPhone">Telefon (WhatsApp) *</label>
+          <input type="tel" id="customerPhone" placeholder="+49 170 1234567" required>
+        </div>
+        <div class="form-group">
+          <label for="customerNote">Anmerkung (optional)</label>
+          <textarea id="customerNote" placeholder="z.B. besondere Wünsche..." rows="2"></textarea>
+        </div>
+      </div>
+
+      <button class="btn-book" id="btnConfirm">Termin anfragen</button>
+      <p class="confirm-note">Du erhältst eine Bestätigung per WhatsApp</p>
+    </section>
+
+    <!-- Success Message -->
+    <section class="booking-step hidden" id="step-success">
+      <div class="success-card">
+        <div class="success-icon">✓</div>
+        <h2>Anfrage gesendet!</h2>
+        <p>MIRO Barber Shop wird deinen Termin in Kürze per WhatsApp bestätigen.</p>
+        <div class="success-details" id="successDetails"></div>
+        <a href="../index.html" class="btn-back">Zurück zur Website</a>
+      </div>
+    </section>
+
+    <!-- Navigation Buttons -->
+    <div class="booking-nav" id="bookingNav">
+      <button class="btn-prev hidden" id="btnPrev">← Zurück</button>
+      <button class="btn-next hidden" id="btnNext">Weiter →</button>
+    </div>
+  </main>
+
+  <script src="js/booking.js"></script>
+</body>
+</html>
