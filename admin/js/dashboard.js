@@ -5,22 +5,24 @@
 
 // ---- Default Data ----
 const DEFAULT_SERVICES = [
-  { id: 1, name: 'Haarschnitt',        price: 25, duration: 30, desc: 'Waschen, Schneiden, Styling' },
-  { id: 2, name: 'Bart trimmen',       price: 15, duration: 20, desc: 'Barttrimmen & Konturen' },
-  { id: 3, name: 'Haarschnitt + Bart', price: 35, duration: 45, desc: 'Komplett-Paket' },
-  { id: 4, name: 'Rasur',              price: 20, duration: 25, desc: 'Klassische Nassrasur mit Rasiermesser' },
-  { id: 5, name: 'Haare + Bart + Rasur', price: 45, duration: 60, desc: 'Das volle Premium-Programm' },
-  { id: 6, name: 'Kinder (bis 12)',    price: 15, duration: 20, desc: 'Kinderhaarschnitt' },
+  { id: 1, name: 'Haarschnitt',           price: 18, duration: 30, desc: 'Klassisch oder trendig' },
+  { id: 2, name: 'Maschinen Haarschnitt', price: 15, duration: 20, desc: 'Schnell, präzise, on point' },
+  { id: 3, name: 'Kinder bis 12 Jahre',   price: 15, duration: 20, desc: 'Coole Cuts für die Kleinen' },
+  { id: 4, name: 'Rasieren',              price: 10, duration: 20, desc: 'Glatte Rasur mit Präzision' },
+  { id: 5, name: 'Musterrasur',           price: 12, duration: 25, desc: 'Individuelle Muster & Designs' },
+  { id: 6, name: 'Augenbrauen zupfen',    price: 5,  duration: 10, desc: 'Perfekt geformte Augenbrauen' },
+  { id: 7, name: 'Waschen',               price: 5,  duration: 10, desc: 'Gründliche Haarwäsche' },
+  { id: 8, name: 'Waschen & Stylen',      price: 8,  duration: 15, desc: 'Waschen, Föhnen und Styling' },
 ];
 
 const DEFAULT_HOURS = {
   0: null,
-  1: ['09:00', '18:30'],
-  2: ['09:00', '18:30'],
-  3: ['09:00', '18:30'],
-  4: ['09:00', '18:30'],
-  5: ['09:00', '18:30'],
-  6: ['09:00', '16:00'],
+  1: ['09:00', '19:00'],
+  2: ['09:00', '19:00'],
+  3: ['09:00', '19:00'],
+  4: ['09:00', '19:00'],
+  5: ['09:00', '19:00'],
+  6: ['09:00', '17:00'],
 };
 
 const DEFAULT_SETTINGS = {
