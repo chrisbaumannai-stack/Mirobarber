@@ -785,6 +785,47 @@ img {
   font-style: italic;
 }
 
+.gallery-instagram {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.instagram-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(201, 169, 110, 0.15);
+  border-radius: var(--radius);
+  padding: 48px 40px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+
+.instagram-icon {
+  margin-bottom: 1.5rem;
+}
+
+.instagram-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+
+.instagram-card p {
+  color: var(--gray-300);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.instagram-card .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* ============================================
    HOURS
    ============================================ */
@@ -1548,46 +1589,28 @@ img {
         <span class="section-tag">Galerie</span>
         <h2 class="section-title">Unsere<br>Arbeiten</h2>
         <div class="section-divider"></div>
+        <p class="section-subtitle">Schau dir unsere besten Arbeiten auf Instagram an</p>
       </div>
-      <div class="gallery-grid">
-        <div class="gallery-item fade-in">
-          <div class="gallery-placeholder">
-            <svg viewBox="0 0 24 24" width="48" height="48"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" fill="#c9a96e"/></svg>
-            <span>Foto 1</span>
-          </div>
-        </div>
-        <div class="gallery-item fade-in">
-          <div class="gallery-placeholder">
-            <svg viewBox="0 0 24 24" width="48" height="48"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" fill="#c9a96e"/></svg>
-            <span>Foto 2</span>
-          </div>
-        </div>
-        <div class="gallery-item fade-in">
-          <div class="gallery-placeholder">
-            <svg viewBox="0 0 24 24" width="48" height="48"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" fill="#c9a96e"/></svg>
-            <span>Foto 3</span>
-          </div>
-        </div>
-        <div class="gallery-item fade-in">
-          <div class="gallery-placeholder">
-            <svg viewBox="0 0 24 24" width="48" height="48"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" fill="#c9a96e"/></svg>
-            <span>Foto 4</span>
-          </div>
-        </div>
-        <div class="gallery-item gallery-item-wide fade-in">
-          <div class="gallery-placeholder">
-            <svg viewBox="0 0 24 24" width="48" height="48"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" fill="#c9a96e"/></svg>
-            <span>Foto 5</span>
-          </div>
-        </div>
-        <div class="gallery-item fade-in">
-          <div class="gallery-placeholder">
-            <svg viewBox="0 0 24 24" width="48" height="48"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" fill="#c9a96e"/></svg>
-            <span>Foto 6</span>
+      <div class="gallery-instagram fade-in">
+        <div class="instagram-feed">
+          <div class="instagram-card">
+            <div class="instagram-icon">
+              <svg viewBox="0 0 24 24" width="64" height="64">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" fill="#c9a96e"/>
+              </svg>
+            </div>
+            <h3>@mirobarbershop_</h3>
+            <p>Folge uns auf Instagram für aktuelle Styles, Vorher-Nachher-Bilder und Einblicke in unseren Barber-Alltag.</p>
+            <a href="https://www.instagram.com/mirobarbershop_/" target="_blank" rel="noopener" class="btn btn-primary">
+              <svg viewBox="0 0 24 24" width="20" height="20" style="vertical-align: middle; margin-right: 0.5rem;">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" fill="currentColor"/>
+              </svg>
+              Auf Instagram ansehen
+            </a>
           </div>
         </div>
       </div>
-      <p class="gallery-note fade-in">Fotos werden bald hinzugefügt – stay tuned!</p>
+      <p class="gallery-note fade-in">Echte Fotos direkt von unserem Instagram-Profil</p>
     </div>
   </section>
 
@@ -1741,6 +1764,15 @@ img {
               <p>Wird nach Freischaltung angezeigt</p>
             </div>
           </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24" width="28" height="28"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" fill="#c9a96e"/></svg>
+            </div>
+            <div>
+              <h3>Instagram</h3>
+              <p><a href="https://www.instagram.com/mirobarbershop_/" target="_blank" rel="noopener">@mirobarbershop_</a></p>
+            </div>
+          </div>
         </div>
         <div class="contact-map fade-in">
           <iframe
@@ -1780,7 +1812,7 @@ img {
         <div class="footer-contact">
           <h4>Kontakt</h4>
           <p>Moselweißer Str. 29<br>56073 Koblenz</p>
-          <p>Wird nach Freischaltung angezeigt</p>
+          <p><a href="https://www.instagram.com/mirobarbershop_/" target="_blank" rel="noopener" style="color: var(--gold);">@mirobarbershop_</a></p>
         </div>
       </div>
       <div class="footer-bottom">
