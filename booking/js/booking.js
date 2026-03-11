@@ -6,7 +6,7 @@
 // ---- Shop Configuration (später pro Shop konfigurierbar) ----
 const SHOP_CONFIG = {
   name: 'MIRO Barber Shop',
-  phone: '4917680151851',  // WhatsApp number
+  phone: '',  // WhatsApp number (deaktiviert im Demo-Modus)
   services: [
     { id: 1, name: 'Haarschnitt',           price: 25, duration: 30, desc: 'Waschen, Schneiden, Styling' },
     { id: 2, name: 'Bart trimmen',          price: 15, duration: 20, desc: 'Barttrimmen & Konturen' },
@@ -289,24 +289,8 @@ function confirmBooking() {
   const date = new Date(state.selectedDate + 'T00:00:00');
   const dayNames = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
 
-  // Build WhatsApp message to shop
-  const message = [
-    `📅 *Neue Terminanfrage*`,
-    ``,
-    `👤 ${name}`,
-    `📱 ${phone}`,
-    `✂️ ${state.selectedService.name}`,
-    `📆 ${dayNames[date.getDay()]}, ${date.getDate()}.${date.getMonth() + 1}. um ${state.selectedTime} Uhr`,
-    `⏱ ${state.selectedService.duration} Min.`,
-    `💰 ${state.selectedService.price}€`,
-    note ? `📝 ${note}` : '',
-    ``,
-    `Bitte bestätige den Termin.`,
-  ].filter(Boolean).join('\n');
-
-  // Send via WhatsApp
-  const waUrl = `https://wa.me/${SHOP_CONFIG.phone}?text=${encodeURIComponent(message)}`;
-  window.open(waUrl, '_blank');
+  // DEMO MODE – no WhatsApp message sent
+  alert('DEMO-MODUS: Terminanfrage wurde NICHT gesendet.\n\nKeine Nachricht wurde verschickt.\nDiese Funktion wird aktiviert, sobald der Shop live geht.');
 
   // Show success
   showSuccess(name, date, dayNames);
