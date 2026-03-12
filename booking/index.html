@@ -120,15 +120,15 @@
       </div>
 
       <button class="btn-book" id="btnConfirm">Termin anfragen</button>
-      <p class="confirm-note">Demo-Modus – es wird keine Nachricht versendet</p>
+      <p class="confirm-note" id="confirmNote">Dein Termin wird gespeichert und bestätigt</p>
     </section>
 
     <!-- Success Message -->
     <section class="booking-step hidden" id="step-success">
       <div class="success-card">
         <div class="success-icon">✓</div>
-        <h2>Anfrage gesendet!</h2>
-        <p>Demo-Modus: Keine Nachricht wurde versendet.</p>
+        <h2>Termin gebucht!</h2>
+        <p>Deine Anfrage wurde erfolgreich gespeichert.</p>
         <div class="success-details" id="successDetails"></div>
         <a href="../index.html" class="btn-back">Zurück zur Website</a>
       </div>
@@ -141,6 +141,7 @@
     </div>
   </main>
 
+  <script src="../sdk/miro-booking.js"></script>
   <script src="js/booking.js"></script>
 </body>
 </html>

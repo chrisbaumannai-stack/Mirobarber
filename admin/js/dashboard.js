@@ -1,56 +1,27 @@
 /* ============================================
    MIRO Dashboard – JavaScript
-   Alle Daten in localStorage (Demo-Modus)
+   Nutzt das MiroBooking SDK für Datenverwaltung
    ============================================ */
 
-// ---- Default Data ----
-const DEFAULT_SERVICES = [
-  { id: 1, name: 'Haarschnitt',           price: 18, duration: 30, desc: 'Klassisch oder trendig' },
-  { id: 2, name: 'Maschinen Haarschnitt', price: 15, duration: 20, desc: 'Schnell, präzise, on point' },
-  { id: 3, name: 'Kinder bis 12 Jahre',   price: 15, duration: 20, desc: 'Coole Cuts für die Kleinen' },
-  { id: 4, name: 'Rasieren',              price: 10, duration: 20, desc: 'Glatte Rasur mit Präzision' },
-  { id: 5, name: 'Musterrasur',           price: 12, duration: 25, desc: 'Individuelle Muster & Designs' },
-  { id: 6, name: 'Augenbrauen zupfen',    price: 5,  duration: 10, desc: 'Perfekt geformte Augenbrauen' },
-  { id: 7, name: 'Waschen',               price: 5,  duration: 10, desc: 'Gründliche Haarwäsche' },
-  { id: 8, name: 'Waschen & Stylen',      price: 8,  duration: 15, desc: 'Waschen, Föhnen und Styling' },
-];
-
-const DEFAULT_HOURS = {
-  0: null,
-  1: ['09:00', '19:00'],
-  2: ['09:00', '19:00'],
-  3: ['09:00', '19:00'],
-  4: ['09:00', '19:00'],
-  5: ['09:00', '19:00'],
-  6: ['09:00', '17:00'],
-};
-
-const DEFAULT_SETTINGS = {
-  name: 'MIRO Barber Shop',
-  phone: '',
-  address: 'Moselweißer Str. 29, 56073 Koblenz',
-  slotInterval: 30,
-};
-
-// ---- Data Store (localStorage) ----
-function getData(key, fallback) {
-  const raw = localStorage.getItem('miro_' + key);
-  return raw ? JSON.parse(raw) : fallback;
-}
-
-function setData(key, value) {
-  localStorage.setItem('miro_' + key, JSON.stringify(value));
-}
-
-// ---- Init ----
-let services = getData('services', DEFAULT_SERVICES);
-let appointments = getData('appointments', []);
-let hours = getData('hours', DEFAULT_HOURS);
-let settings = getData('settings', DEFAULT_SETTINGS);
+let engine = null;
+let services = [];
+let appointments = [];
+let hours = {};
+let settings = {};
 let currentFilter = 'upcoming';
 let editingServiceId = null;
 
-document.addEventListener('DOMContentLoaded', () => {
+// ---- Init ----
+document.addEventListener('DOMContentLoaded', async () => {
+  // Init SDK
+  engine = await MiroBooking.init({
+    storagePrefix: 'miro_',
+    shopId: 'miro-koblenz'
+  });
+
+  // Load all data
+  await refreshData();
+
   initNavigation();
   initAppointments();
   initServices();
@@ -58,7 +29,36 @@ document.addEventListener('DOMContentLoaded', () => {
   initSettings();
   updateStats();
   renderTodayOverview();
+
+  // Update mode badge
+  const badge = document.querySelector('.demo-badge');
+  if (badge) {
+    badge.textContent = engine.getMode() === 'supabase' ? 'LIVE' : 'DEMO';
+    badge.style.background = engine.getMode() === 'supabase' ? '#2ecc71' : '';
+  }
+
+  // Listen for real-time updates
+  engine.events.on('appointment:created', () => refreshAndRender());
+  engine.events.on('appointment:updated', () => refreshAndRender());
+  engine.events.on('service:created', () => refreshAndRender());
+  engine.events.on('service:updated', () => refreshAndRender());
+  engine.events.on('service:deleted', () => refreshAndRender());
 });
+
+async function refreshData() {
+  services = await engine.getServices(false);
+  appointments = await engine.getAppointments();
+  hours = await engine.getHours();
+  settings = await engine.getSettings();
+}
+
+async function refreshAndRender() {
+  await refreshData();
+  renderAppointments();
+  renderServices();
+  updateStats();
+  renderTodayOverview();
+}
 
 // ---- Navigation ----
 function initNavigation() {
@@ -73,7 +73,6 @@ function initNavigation() {
     document.getElementById('sidebar').classList.toggle('open');
   });
 
-  // Close sidebar on tab click (mobile)
   document.querySelectorAll('.nav-item').forEach(item => {
     item.addEventListener('click', () => {
       if (window.innerWidth <= 768) {
@@ -84,61 +83,36 @@ function initNavigation() {
 }
 
 function switchTab(tabName) {
-  // Update nav
   document.querySelectorAll('.nav-item[data-tab]').forEach(n => n.classList.remove('active'));
   const navItem = document.querySelector(`.nav-item[data-tab="${tabName}"]`);
   if (navItem) navItem.classList.add('active');
 
-  // Update content
   document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
   const tab = document.getElementById('tab-' + tabName);
   if (tab) tab.classList.add('active');
 
-  // Update title
   const titles = { overview: 'Übersicht', appointments: 'Termine', services: 'Services', hours: 'Öffnungszeiten', settings: 'Einstellungen' };
   document.getElementById('pageTitle').textContent = titles[tabName] || tabName;
+
+  // Refresh data when switching tabs
+  if (tabName === 'appointments') refreshData().then(() => renderAppointments());
+  if (tabName === 'overview') refreshData().then(() => { updateStats(); renderTodayOverview(); });
 }
 
-// Make switchTab globally available for onclick handlers
 window.switchTab = switchTab;
 
 // ---- Stats ----
-function updateStats() {
-  const today = formatDate(new Date());
-  const todayAppts = appointments.filter(a => a.date === today && a.status !== 'cancelled');
-  document.getElementById('statToday').textContent = todayAppts.length;
-
-  // This week
-  const now = new Date();
-  const startOfWeek = new Date(now);
-  startOfWeek.setDate(now.getDate() - now.getDay() + 1);
-  startOfWeek.setHours(0, 0, 0, 0);
-  const endOfWeek = new Date(startOfWeek);
-  endOfWeek.setDate(startOfWeek.getDate() + 6);
-  endOfWeek.setHours(23, 59, 59, 999);
-
-  const weekAppts = appointments.filter(a => {
-    const d = new Date(a.date + 'T00:00:00');
-    return d >= startOfWeek && d <= endOfWeek && a.status !== 'cancelled';
-  });
-  document.getElementById('statWeek').textContent = weekAppts.length;
-
-  // Revenue
-  const revenue = weekAppts.reduce((sum, a) => {
-    const svc = services.find(s => s.id === a.serviceId);
-    return sum + (svc ? svc.price : 0);
-  }, 0);
-  document.getElementById('statRevenue').innerHTML = revenue + ' &euro;';
-
-  document.getElementById('statServices').textContent = services.length;
+async function updateStats() {
+  const stats = await engine.getStats();
+  document.getElementById('statToday').textContent = stats.today;
+  document.getElementById('statWeek').textContent = stats.week;
+  document.getElementById('statRevenue').innerHTML = stats.revenue + ' &euro;';
+  document.getElementById('statServices').textContent = stats.serviceCount;
 }
 
-function renderTodayOverview() {
-  const today = formatDate(new Date());
-  const todayAppts = appointments
-    .filter(a => a.date === today && a.status !== 'cancelled')
-    .sort((a, b) => a.time.localeCompare(b.time));
-
+async function renderTodayOverview() {
+  const stats = await engine.getStats();
+  const todayAppts = stats.todayAppointments;
   const container = document.getElementById('todayAppointments');
 
   if (todayAppts.length === 0) {
@@ -156,7 +130,7 @@ function renderTodayOverview() {
       <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid var(--dark-4);">
         <div>
           <strong>${a.time}</strong> – ${a.customerName}
-          <div style="font-size: 0.8rem; color: var(--gray-400);">${svc ? svc.name : 'Unbekannt'}</div>
+          <div style="font-size: 0.8rem; color: var(--gray-400);">${a.serviceName || (svc ? svc.name : 'Unbekannt')}</div>
         </div>
         <span class="status-badge status-${a.status}">${statusLabel(a.status)}</span>
       </div>`;
@@ -179,7 +153,6 @@ function initAppointments() {
 
   document.getElementById('btnSaveAppointment').addEventListener('click', saveAppointment);
 
-  // Filters
   document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -192,10 +165,10 @@ function initAppointments() {
   renderAppointments();
 }
 
-function saveAppointment() {
+async function saveAppointment() {
   const name = document.getElementById('apptName').value.trim();
   const phone = document.getElementById('apptPhone').value.trim();
-  const serviceId = parseInt(document.getElementById('apptService').value);
+  const serviceId = document.getElementById('apptService').value;
   const date = document.getElementById('apptDate').value;
   const time = document.getElementById('apptTime').value;
   const note = document.getElementById('apptNote').value.trim();
@@ -205,20 +178,18 @@ function saveAppointment() {
     return;
   }
 
-  const appointment = {
-    id: Date.now(),
+  const svc = services.find(s => String(s.id) === String(serviceId));
+
+  await engine.createAppointment({
     customerName: name,
-    phone: phone,
+    customerPhone: phone,
     serviceId: serviceId,
+    serviceName: svc ? svc.name : '',
     date: date,
     time: time,
     note: note,
-    status: 'confirmed',
-    createdAt: new Date().toISOString(),
-  };
-
-  appointments.push(appointment);
-  setData('appointments', appointments);
+    status: 'confirmed'
+  });
 
   // Reset form
   document.getElementById('newAppointmentForm').classList.add('hidden');
@@ -226,6 +197,7 @@ function saveAppointment() {
   document.getElementById('apptPhone').value = '';
   document.getElementById('apptNote').value = '';
 
+  await refreshData();
   renderAppointments();
   updateStats();
   renderTodayOverview();
@@ -269,7 +241,7 @@ function renderAppointments() {
   const dayNames = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
 
   tbody.innerHTML = filtered.map(a => {
-    const svc = services.find(s => s.id === a.serviceId);
+    const svc = services.find(s => String(s.id) === String(a.serviceId));
     const d = new Date(a.date + 'T00:00:00');
     const dateStr = `${dayNames[d.getDay()]}, ${d.getDate()}.${d.getMonth() + 1}.`;
 
@@ -278,30 +250,27 @@ function renderAppointments() {
         <td>${dateStr}</td>
         <td>${a.time}</td>
         <td>${a.customerName}</td>
-        <td>${svc ? svc.name : '–'}</td>
+        <td>${a.serviceName || (svc ? svc.name : '–')}</td>
         <td>${svc ? svc.price + '€' : '–'}</td>
         <td><span class="status-badge status-${a.status}">${statusLabel(a.status)}</span></td>
         <td>
           <div style="display: flex; gap: 0.25rem;">
-            ${a.status === 'pending' ? `<button class="btn-primary btn-sm" onclick="updateStatus(${a.id}, 'confirmed')">Bestätigen</button>` : ''}
-            ${a.status !== 'cancelled' && a.status !== 'completed' ? `<button class="btn-secondary btn-sm" onclick="updateStatus(${a.id}, 'completed')">Erledigt</button>` : ''}
-            ${a.status !== 'cancelled' ? `<button class="btn-danger btn-sm" onclick="updateStatus(${a.id}, 'cancelled')">Storno</button>` : ''}
+            ${a.status === 'pending' ? `<button class="btn-primary btn-sm" onclick="updateStatus('${a.id}', 'confirmed')">Bestätigen</button>` : ''}
+            ${a.status !== 'cancelled' && a.status !== 'completed' ? `<button class="btn-secondary btn-sm" onclick="updateStatus('${a.id}', 'completed')">Erledigt</button>` : ''}
+            ${a.status !== 'cancelled' ? `<button class="btn-danger btn-sm" onclick="updateStatus('${a.id}', 'cancelled')">Storno</button>` : ''}
           </div>
         </td>
       </tr>`;
   }).join('');
 }
 
-function updateStatus(id, status) {
-  const appt = appointments.find(a => a.id === id);
-  if (appt) {
-    appt.status = status;
-    setData('appointments', appointments);
-    renderAppointments();
-    updateStats();
-    renderTodayOverview();
-    showToast('Status aktualisiert');
-  }
+async function updateStatus(id, status) {
+  await engine.updateAppointment(id, { status });
+  await refreshData();
+  renderAppointments();
+  updateStats();
+  renderTodayOverview();
+  showToast('Status aktualisiert');
 }
 window.updateStatus = updateStatus;
 
@@ -333,11 +302,11 @@ function initServices() {
   renderServices();
 }
 
-function saveService() {
+async function saveService() {
   const name = document.getElementById('svcName').value.trim();
   const price = parseInt(document.getElementById('svcPrice').value);
   const duration = parseInt(document.getElementById('svcDuration').value);
-  const desc = document.getElementById('svcDesc').value.trim();
+  const description = document.getElementById('svcDesc').value.trim();
 
   if (!name || isNaN(price) || isNaN(duration)) {
     showToast('Bitte alle Pflichtfelder ausfüllen');
@@ -345,28 +314,21 @@ function saveService() {
   }
 
   if (editingServiceId) {
-    const svc = services.find(s => s.id === editingServiceId);
-    if (svc) {
-      svc.name = name;
-      svc.price = price;
-      svc.duration = duration;
-      svc.desc = desc;
-    }
+    await engine.saveService({ id: editingServiceId, name, price, duration, description });
   } else {
-    const maxId = services.reduce((max, s) => Math.max(max, s.id), 0);
-    services.push({ id: maxId + 1, name, price, duration, desc });
+    await engine.saveService({ name, price, duration, description, active: true });
   }
 
-  setData('services', services);
   document.getElementById('newServiceForm').classList.add('hidden');
   editingServiceId = null;
+  await refreshData();
   renderServices();
   updateStats();
   showToast('Service gespeichert');
 }
 
 function editService(id) {
-  const svc = services.find(s => s.id === id);
+  const svc = services.find(s => String(s.id) === String(id));
   if (!svc) return;
 
   editingServiceId = id;
@@ -374,15 +336,15 @@ function editService(id) {
   document.getElementById('svcName').value = svc.name;
   document.getElementById('svcPrice').value = svc.price;
   document.getElementById('svcDuration').value = svc.duration;
-  document.getElementById('svcDesc').value = svc.desc || '';
+  document.getElementById('svcDesc').value = svc.description || svc.desc || '';
   document.getElementById('newServiceForm').classList.remove('hidden');
 }
 window.editService = editService;
 
-function deleteService(id) {
+async function deleteService(id) {
   if (!confirm('Service wirklich löschen?')) return;
-  services = services.filter(s => s.id !== id);
-  setData('services', services);
+  await engine.deleteService(id);
+  await refreshData();
   renderServices();
   updateStats();
   showToast('Service gelöscht');
@@ -394,14 +356,14 @@ function renderServices() {
   grid.innerHTML = services.map(s => `
     <div class="service-card-admin">
       <h3>${s.name}</h3>
-      <p class="service-desc">${s.desc || '–'}</p>
+      <p class="service-desc">${s.description || s.desc || '–'}</p>
       <div class="service-meta-admin">
         <span>${s.price}€</span>
         <span>${s.duration} Min.</span>
       </div>
       <div class="service-actions">
-        <button class="btn-secondary btn-sm" onclick="editService(${s.id})">Bearbeiten</button>
-        <button class="btn-danger btn-sm" onclick="deleteService(${s.id})">Löschen</button>
+        <button class="btn-secondary btn-sm" onclick="editService('${s.id}')">Bearbeiten</button>
+        <button class="btn-danger btn-sm" onclick="deleteService('${s.id}')">Löschen</button>
       </div>
     </div>
   `).join('');
@@ -413,9 +375,10 @@ function initHours() {
   const container = document.getElementById('hoursForm');
 
   container.innerHTML = dayNames.map((name, i) => {
-    const isOpen = hours[i] !== null;
-    const openTime = isOpen ? hours[i][0] : '09:00';
-    const closeTime = isOpen ? hours[i][1] : '18:00';
+    const dayData = hours[i];
+    const isOpen = dayData && dayData.open !== false;
+    const openTime = isOpen ? (dayData.from || '09:00') : '09:00';
+    const closeTime = isOpen ? (dayData.to || '18:00') : '18:00';
 
     return `
       <div class="hours-row">
@@ -432,7 +395,7 @@ function initHours() {
       </div>`;
   }).join('');
 
-  document.getElementById('btnSaveHours').addEventListener('click', saveHours);
+  document.getElementById('btnSaveHours').addEventListener('click', saveHoursHandler);
 }
 
 function toggleDay(day, isOpen) {
@@ -457,34 +420,39 @@ function toggleDay(day, isOpen) {
 }
 window.toggleDay = toggleDay;
 
-function saveHours() {
+async function saveHoursHandler() {
+  const newHours = {};
   for (let i = 0; i < 7; i++) {
     const toggle = document.querySelector(`.hours-toggle[data-day="${i}"]`);
     if (toggle.checked) {
-      const open = document.getElementById('hours-open-' + i).value;
-      const close = document.getElementById('hours-close-' + i).value;
-      hours[i] = [open, close];
+      const from = document.getElementById('hours-open-' + i).value;
+      const to = document.getElementById('hours-close-' + i).value;
+      newHours[i] = { open: true, from, to };
     } else {
-      hours[i] = null;
+      newHours[i] = { open: false, from: '09:00', to: '18:00' };
     }
   }
-  setData('hours', hours);
+  await engine.saveHours(newHours);
+  hours = newHours;
   showToast('Öffnungszeiten gespeichert');
 }
 
 // ---- Settings ----
 function initSettings() {
-  document.getElementById('settingName').value = settings.name;
-  document.getElementById('settingPhone').value = settings.phone;
-  document.getElementById('settingAddress').value = settings.address;
-  document.getElementById('settingSlotInterval').value = settings.slotInterval;
+  document.getElementById('settingName').value = settings.shopName || settings.name || '';
+  document.getElementById('settingPhone').value = settings.phone || '';
+  document.getElementById('settingAddress').value = settings.address || '';
+  document.getElementById('settingSlotInterval').value = settings.slotInterval || 30;
 
-  document.getElementById('btnSaveSettings').addEventListener('click', () => {
-    settings.name = document.getElementById('settingName').value.trim();
-    settings.phone = document.getElementById('settingPhone').value.trim();
-    settings.address = document.getElementById('settingAddress').value.trim();
-    settings.slotInterval = parseInt(document.getElementById('settingSlotInterval').value);
-    setData('settings', settings);
+  document.getElementById('btnSaveSettings').addEventListener('click', async () => {
+    const newSettings = {
+      shopName: document.getElementById('settingName').value.trim(),
+      phone: document.getElementById('settingPhone').value.trim(),
+      address: document.getElementById('settingAddress').value.trim(),
+      slotInterval: parseInt(document.getElementById('settingSlotInterval').value)
+    };
+    await engine.saveSettings(newSettings);
+    settings = newSettings;
     showToast('Einstellungen gespeichert');
   });
 }
