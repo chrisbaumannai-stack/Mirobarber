@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
     dateInput.value = today;
   }
 
-  // --- WhatsApp booking form ---
+  // --- Booking form (DEMO MODE – no messages sent) ---
   const bookingForm = document.getElementById('bookingForm');
 
   bookingForm.addEventListener('submit', (e) => {
@@ -83,27 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!name || !service || !date || !time) return;
 
-    // Format date nicely
-    const dateObj = new Date(date + 'T00:00:00');
-    const formattedDate = dateObj.toLocaleDateString('de-DE', {
-      weekday: 'long',
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
-    });
-
-    const message =
-      `Hallo! Ich möchte gerne einen Termin vereinbaren.\n\n` +
-      `Name: ${name}\n` +
-      `Service: ${service}\n` +
-      `Wunschtermin: ${formattedDate}\n` +
-      `Wunschzeit: ${time} Uhr\n\n` +
-      `Vielen Dank!`;
-
-    const encoded = encodeURIComponent(message);
-    const waUrl = `https://wa.me/4901627482992?text=${encoded}`;
-
-    window.open(waUrl, '_blank', 'noopener');
+    alert('DEMO-MODUS: Terminanfrage wurde NICHT gesendet.\n\nName: ' + name + '\nService: ' + service + '\nDatum: ' + date + '\nZeit: ' + time + '\n\nDiese Funktion wird aktiviert, sobald der Shop live geht.');
   });
 
   // --- Smooth scroll for anchor links ---

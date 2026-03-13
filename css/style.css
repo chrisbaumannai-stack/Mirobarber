@@ -158,9 +158,25 @@ img {
 
 .nav-logo {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 10px;
   text-decoration: none;
   line-height: 1.1;
+}
+
+.nav-logo-icon {
+  width: 40px;
+  height: 40px;
+  transition: transform var(--transition);
+}
+
+.nav-logo:hover .nav-logo-icon {
+  transform: scale(1.1);
+}
+
+.nav-logo-text {
+  display: flex;
+  flex-direction: column;
 }
 
 .logo-text {
@@ -615,19 +631,13 @@ img {
   justify-content: center;
 }
 
-.about-image-placeholder {
+.about-img {
   width: 100%;
   aspect-ratio: 3/4;
-  background: var(--bg-card);
+  object-fit: cover;
   border-radius: var(--radius);
-  border: 2px dashed rgba(201, 169, 110, 0.2);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  color: var(--gray-500);
-  font-size: 0.9rem;
+  border: 1px solid rgba(201, 169, 110, 0.15);
+  box-shadow: var(--shadow);
 }
 
 /* ============================================
@@ -737,10 +747,22 @@ img {
   overflow: hidden;
   aspect-ratio: 1;
   transition: transform var(--transition);
+  border: 1px solid rgba(201, 169, 110, 0.1);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
 }
 
 .gallery-item:hover {
   transform: scale(1.02);
+}
+
+.gallery-item:hover img {
+  transform: scale(1.05);
 }
 
 .gallery-item-wide {
@@ -748,19 +770,9 @@ img {
   aspect-ratio: 2/1;
 }
 
-.gallery-placeholder {
-  width: 100%;
-  height: 100%;
-  background: var(--bg-card);
-  border: 2px dashed rgba(201, 169, 110, 0.15);
-  border-radius: var(--radius);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  color: var(--gray-500);
-  font-size: 0.85rem;
+.gallery-instagram-link {
+  text-align: center;
+  margin-top: 40px;
 }
 
 .gallery-note {
@@ -768,6 +780,48 @@ img {
   margin-top: 32px;
   color: var(--gray-500);
   font-style: italic;
+}
+
+/* Instagram Gallery */
+.gallery-instagram {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.instagram-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(201, 169, 110, 0.15);
+  border-radius: var(--radius);
+  padding: 48px 40px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+
+.instagram-icon {
+  margin-bottom: 1.5rem;
+}
+
+.instagram-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+
+.instagram-card p {
+  color: var(--gray-300);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.instagram-card .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ============================================
@@ -1165,9 +1219,9 @@ img {
     order: -1;
   }
 
-  .about-image-placeholder {
+  .about-img {
     aspect-ratio: 16/9;
-    max-height: 300px;
+    max-height: 350px;
   }
 
   .contact-grid {

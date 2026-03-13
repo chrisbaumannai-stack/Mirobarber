@@ -15,6 +15,23 @@
   <header class="booking-header">
     <a href="../index.html" class="back-link">← Zurück</a>
     <div class="header-logo">
+      <svg viewBox="0 0 200 200" class="header-logo-icon" aria-hidden="true" style="width:36px;height:36px;display:inline-block;vertical-align:middle;margin-right:8px;">
+        <defs>
+          <clipPath id="bkCircleClip"><circle cx="100" cy="100" r="82"/></clipPath>
+          <radialGradient id="bkFaceGrad" cx="50%" cy="40%" r="50%"><stop offset="0%" stop-color="#e8d5b0"/><stop offset="100%" stop-color="#c9a96e"/></radialGradient>
+        </defs>
+        <circle cx="100" cy="100" r="95" fill="none" stroke="#c9a96e" stroke-width="3"/>
+        <circle cx="100" cy="100" r="82" fill="#0a0a0a"/>
+        <g clip-path="url(#bkCircleClip)">
+          <ellipse cx="100" cy="88" rx="38" ry="48" fill="url(#bkFaceGrad)"/>
+          <path d="M62,60 Q62,30 80,22 Q90,18 100,16 Q110,18 120,22 Q138,30 138,60 Q135,48 128,42 Q120,36 110,34 Q100,32 90,34 Q80,36 72,42 Q65,48 62,60Z" fill="#1a1a1a"/>
+          <path d="M88,22 Q92,8 100,6 Q108,8 115,14 Q120,20 124,28 Q116,16 108,12 Q100,10 94,14 Q90,18 88,22Z" fill="#1a1a1a"/>
+          <ellipse cx="87" cy="74" rx="5" ry="3.5" fill="#1a1a1a"/>
+          <ellipse cx="113" cy="74" rx="5" ry="3.5" fill="#1a1a1a"/>
+          <path d="M66,82 Q64,100 66,115 Q68,130 76,142 Q84,152 100,158 Q116,152 124,142 Q132,130 134,115 Q136,100 134,82 Q130,86 124,90 Q114,96 100,98 Q86,96 76,90 Q70,86 66,82Z" fill="#1a1a1a"/>
+          <path d="M84,92 Q88,88 94,90 Q98,92 100,94 Q102,92 106,90 Q112,88 116,92 Q112,96 106,94 Q102,96 100,98 Q98,96 94,94 Q88,96 84,92Z" fill="#1a1a1a"/>
+        </g>
+      </svg>
       <span class="logo-text">MIRO</span>
       <span class="logo-sub">Barber Shop</span>
     </div>
@@ -120,15 +137,15 @@
       </div>
 
       <button class="btn-book" id="btnConfirm">Termin anfragen</button>
-      <p class="confirm-note">Du erhältst eine Bestätigung per WhatsApp</p>
+      <p class="confirm-note" id="confirmNote">Dein Termin wird gespeichert und bestätigt</p>
     </section>
 
     <!-- Success Message -->
     <section class="booking-step hidden" id="step-success">
       <div class="success-card">
         <div class="success-icon">✓</div>
-        <h2>Anfrage gesendet!</h2>
-        <p>MIRO Barber Shop wird deinen Termin in Kürze per WhatsApp bestätigen.</p>
+        <h2>Termin gebucht!</h2>
+        <p>Deine Anfrage wurde erfolgreich gespeichert.</p>
         <div class="success-details" id="successDetails"></div>
         <a href="../index.html" class="btn-back">Zurück zur Website</a>
       </div>
@@ -141,6 +158,7 @@
     </div>
   </main>
 
+  <script src="../sdk/miro-booking.js"></script>
   <script src="js/booking.js"></script>
 </body>
 </html>

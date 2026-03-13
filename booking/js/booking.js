@@ -1,37 +1,7 @@
 /* ============================================
    MIRO Booking Module – Booking Logic
-   Modular, eigenständig, Mock-Daten
+   Nutzt das MiroBooking SDK für Daten
    ============================================ */
-
-// ---- Shop Configuration (später pro Shop konfigurierbar) ----
-const SHOP_CONFIG = {
-  name: 'MIRO Barber Shop',
-  phone: '4917680151851',  // WhatsApp number
-  services: [
-    { id: 1, name: 'Haarschnitt',           price: 25, duration: 30, desc: 'Waschen, Schneiden, Styling' },
-    { id: 2, name: 'Bart trimmen',          price: 15, duration: 20, desc: 'Barttrimmen & Konturen' },
-    { id: 3, name: 'Haarschnitt + Bart',    price: 35, duration: 45, desc: 'Komplett-Paket' },
-    { id: 4, name: 'Rasur',                 price: 20, duration: 25, desc: 'Klassische Nassrasur mit Rasiermesser' },
-    { id: 5, name: 'Haare + Bart + Rasur',  price: 45, duration: 60, desc: 'Das volle Premium-Programm' },
-    { id: 6, name: 'Kinder (bis 12)',       price: 15, duration: 20, desc: 'Kinderhaarschnitt' },
-  ],
-  // Öffnungszeiten: [start, end] in Stunden (24h), null = geschlossen
-  hours: {
-    0: null,                    // Sonntag – geschlossen
-    1: [9, 18.5],              // Montag
-    2: [9, 18.5],              // Dienstag
-    3: [9, 18.5],              // Mittwoch
-    4: [9, 18.5],              // Donnerstag
-    5: [9, 18.5],              // Freitag
-    6: [9, 16],                // Samstag
-  },
-  slotInterval: 30,  // Minuten zwischen Slots
-};
-
-// ---- Mock: Gebuchte Termine (später aus Supabase) ----
-const MOCK_BOOKINGS = [
-  // Beispiel: { date: '2026-03-12', time: '10:00' },
-];
 
 // ---- State ----
 const state = {
@@ -42,12 +12,26 @@ const state = {
   weekOffset: 0,
 };
 
+let engine = null;
+let services = [];
+let shopHours = {};
+
 // ---- DOM References ----
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => document.querySelectorAll(sel);
 
 // ---- Init ----
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  // Init SDK (local mode – no Supabase config needed)
+  engine = await MiroBooking.init({
+    storagePrefix: 'miro_',
+    shopId: 'miro-koblenz'
+  });
+
+  // Load data from SDK
+  services = await engine.getServices();
+  shopHours = await engine.getHours();
+
   renderServices();
   renderDates();
   updateNavButtons();
@@ -57,27 +41,33 @@ document.addEventListener('DOMContentLoaded', () => {
   $('#btnConfirm').addEventListener('click', confirmBooking);
   $('#prevWeek').addEventListener('click', () => { state.weekOffset--; renderDates(); });
   $('#nextWeek').addEventListener('click', () => { state.weekOffset++; renderDates(); });
+
+  // Show mode indicator
+  const badge = document.createElement('div');
+  badge.className = 'mode-badge';
+  badge.textContent = engine.getMode() === 'supabase' ? 'LIVE' : 'DEMO';
+  badge.style.cssText = 'position:fixed;bottom:1rem;right:1rem;background:' +
+    (engine.getMode() === 'supabase' ? '#2ecc71' : '#c9a96e') +
+    ';color:#000;padding:0.25rem 0.75rem;border-radius:2rem;font-size:0.7rem;font-weight:700;z-index:999;letter-spacing:0.05em;';
+  document.body.appendChild(badge);
 });
 
 // ---- Step Navigation ----
 function goToStep(step) {
   state.currentStep = step;
 
-  // Show/hide sections
   for (let i = 1; i <= 4; i++) {
     const el = $(`#step-${i}`);
     if (el) el.classList.toggle('hidden', i !== step);
   }
   $('#step-success').classList.add('hidden');
 
-  // Update progress
   $$('.progress-bar .step').forEach(s => {
     const sNum = parseInt(s.dataset.step);
     s.classList.toggle('active', sNum === step);
     s.classList.toggle('completed', sNum < step);
   });
 
-  // Render step-specific content
   if (step === 3) renderTimeSlots();
   if (step === 4) renderSummary();
 
@@ -103,7 +93,6 @@ function updateNavButtons() {
   prev.classList.toggle('hidden', state.currentStep <= 1);
   next.classList.toggle('hidden', state.currentStep >= 4);
 
-  // Disable next if nothing selected
   if (state.currentStep === 1) next.disabled = !state.selectedService;
   if (state.currentStep === 2) next.disabled = !state.selectedDate;
   if (state.currentStep === 3) next.disabled = !state.selectedTime;
@@ -112,11 +101,11 @@ function updateNavButtons() {
 // ---- Step 1: Services ----
 function renderServices() {
   const grid = $('#serviceGrid');
-  grid.innerHTML = SHOP_CONFIG.services.map(s => `
+  grid.innerHTML = services.map(s => `
     <div class="service-card" data-id="${s.id}">
       <div class="service-info">
         <h3>${s.name}</h3>
-        <p>${s.desc}</p>
+        <p>${s.description || ''}</p>
       </div>
       <div class="service-meta">
         <div class="service-price">${s.price}€</div>
@@ -127,8 +116,8 @@ function renderServices() {
 
   grid.querySelectorAll('.service-card').forEach(card => {
     card.addEventListener('click', () => {
-      const id = parseInt(card.dataset.id);
-      state.selectedService = SHOP_CONFIG.services.find(s => s.id === id);
+      const id = card.dataset.id;
+      state.selectedService = services.find(s => s.id === id || s.id === parseInt(id));
 
       grid.querySelectorAll('.service-card').forEach(c => c.classList.remove('selected'));
       card.classList.add('selected');
@@ -145,21 +134,16 @@ function renderDates() {
 
   const startOfWeek = new Date(today);
   startOfWeek.setDate(today.getDate() + (state.weekOffset * 7));
-
-  // Don't allow past weeks
   if (startOfWeek < today) startOfWeek.setTime(today.getTime());
 
   const dayNames = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
   const monthNames = ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'];
 
-  // Week label
   const endOfRange = new Date(startOfWeek);
   endOfRange.setDate(startOfWeek.getDate() + 6);
   $('#weekLabel').textContent = `${startOfWeek.getDate()}. ${monthNames[startOfWeek.getMonth()]} – ${endOfRange.getDate()}. ${monthNames[endOfRange.getMonth()]}`;
 
-  // Don't go to past
   $('#prevWeek').disabled = state.weekOffset <= 0;
-  // Max 4 weeks ahead
   $('#nextWeek').disabled = state.weekOffset >= 3;
 
   let html = '';
@@ -168,15 +152,16 @@ function renderDates() {
     date.setDate(startOfWeek.getDate() + i);
 
     const dayOfWeek = date.getDay();
-    const isOpen = SHOP_CONFIG.hours[dayOfWeek] !== null;
+    const dayHours = shopHours[dayOfWeek];
+    const isOpen = dayHours && dayHours.open !== false;
     const isPast = date < today;
     const disabled = !isOpen || isPast;
-    const dateStr = formatDate(date);
+    const dateStr = formatDateISO(date);
     const isSelected = state.selectedDate === dateStr;
 
     html += `
       <div class="date-card ${disabled ? 'disabled' : ''} ${isSelected ? 'selected' : ''}"
-           data-date="${dateStr}" ${disabled ? '' : ''}>
+           data-date="${dateStr}">
         <div class="day-name">${dayNames[dayOfWeek]}</div>
         <div class="day-number">${date.getDate()}</div>
         <div class="day-month">${monthNames[date.getMonth()]}</div>
@@ -188,7 +173,7 @@ function renderDates() {
   grid.querySelectorAll('.date-card:not(.disabled)').forEach(card => {
     card.addEventListener('click', () => {
       state.selectedDate = card.dataset.date;
-      state.selectedTime = null; // Reset time on date change
+      state.selectedTime = null;
 
       grid.querySelectorAll('.date-card').forEach(c => c.classList.remove('selected'));
       card.classList.add('selected');
@@ -198,65 +183,42 @@ function renderDates() {
 }
 
 // ---- Step 3: Time Slots ----
-function renderTimeSlots() {
+async function renderTimeSlots() {
   const grid = $('#timeGrid');
-  if (!state.selectedDate) return;
+  if (!state.selectedDate || !state.selectedService) return;
 
+  // Show loading
+  grid.innerHTML = '<p style="color: var(--gray-400); text-align: center;">Verfügbare Zeiten laden...</p>';
+
+  // Date label
   const date = new Date(state.selectedDate + 'T00:00:00');
-  const dayOfWeek = date.getDay();
-  const hours = SHOP_CONFIG.hours[dayOfWeek];
+  const dayNames = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
+  const monthNames = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+  $('#selectedDateLabel').textContent = `${dayNames[date.getDay()]}, ${date.getDate()}. ${monthNames[date.getMonth()]}`;
 
-  if (!hours) {
-    grid.innerHTML = '<p style="color: var(--gray-400); text-align: center;">Geschlossen</p>';
+  // Get available slots from SDK (checks existing bookings!)
+  const slots = await engine.getAvailableSlots(state.selectedDate, state.selectedService.id);
+
+  if (slots.length === 0) {
+    grid.innerHTML = '<p style="color: var(--gray-400); text-align: center;">Keine verfügbaren Zeiten an diesem Tag</p>';
     return;
   }
 
-  // Date label
-  const dayNames = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
-  const monthNames = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
-  $('#selectedDateLabel').textContent = `${dayNames[dayOfWeek]}, ${date.getDate()}. ${monthNames[date.getMonth()]}`;
-
-  const [startHour, endHour] = hours;
-  const serviceDuration = state.selectedService ? state.selectedService.duration : 30;
-  const interval = SHOP_CONFIG.slotInterval;
-
-  let html = '';
-  for (let h = startHour; h < endHour; h += interval / 60) {
-    const hour = Math.floor(h);
-    const min = Math.round((h - hour) * 60);
-    const timeStr = `${String(hour).padStart(2, '0')}:${String(min).padStart(2, '0')}`;
-
-    // Check if slot end fits within opening hours
-    const slotEnd = h + serviceDuration / 60;
-    if (slotEnd > endHour) continue;
-
-    // Check if booked (mock)
-    const isBooked = MOCK_BOOKINGS.some(b => b.date === state.selectedDate && b.time === timeStr);
-
-    // Check if time is in the past (for today)
-    const now = new Date();
-    const slotDate = new Date(state.selectedDate + 'T' + timeStr + ':00');
-    const isPast = slotDate <= now;
-
-    const disabled = isBooked || isPast;
-    const isSelected = state.selectedTime === timeStr;
-
-    html += `
-      <div class="time-slot ${disabled ? 'disabled' : ''} ${isSelected ? 'selected' : ''}"
-           data-time="${timeStr}">
-        ${timeStr}
+  grid.innerHTML = slots.map(slot => {
+    const isSelected = state.selectedTime === slot.time;
+    return `
+      <div class="time-slot ${isSelected ? 'selected' : ''}" data-time="${slot.time}">
+        ${slot.time}
       </div>
     `;
-  }
+  }).join('');
 
-  grid.innerHTML = html;
-
-  grid.querySelectorAll('.time-slot:not(.disabled)').forEach(slot => {
-    slot.addEventListener('click', () => {
-      state.selectedTime = slot.dataset.time;
+  grid.querySelectorAll('.time-slot').forEach(slotEl => {
+    slotEl.addEventListener('click', () => {
+      state.selectedTime = slotEl.dataset.time;
 
       grid.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
-      slot.classList.add('selected');
+      slotEl.classList.add('selected');
       updateNavButtons();
     });
   });
@@ -278,7 +240,7 @@ function renderSummary() {
 }
 
 // ---- Confirm Booking ----
-function confirmBooking() {
+async function confirmBooking() {
   const name = $('#customerName').value.trim();
   const phone = $('#customerPhone').value.trim();
   const note = $('#customerNote').value.trim();
@@ -286,34 +248,38 @@ function confirmBooking() {
   if (!name) { $('#customerName').focus(); return; }
   if (!phone) { $('#customerPhone').focus(); return; }
 
-  const date = new Date(state.selectedDate + 'T00:00:00');
-  const dayNames = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
+  // Disable button while saving
+  const btn = $('#btnConfirm');
+  btn.disabled = true;
+  btn.textContent = 'Wird gespeichert...';
 
-  // Build WhatsApp message to shop
-  const message = [
-    `📅 *Neue Terminanfrage*`,
-    ``,
-    `👤 ${name}`,
-    `📱 ${phone}`,
-    `✂️ ${state.selectedService.name}`,
-    `📆 ${dayNames[date.getDay()]}, ${date.getDate()}.${date.getMonth() + 1}. um ${state.selectedTime} Uhr`,
-    `⏱ ${state.selectedService.duration} Min.`,
-    `💰 ${state.selectedService.price}€`,
-    note ? `📝 ${note}` : '',
-    ``,
-    `Bitte bestätige den Termin.`,
-  ].filter(Boolean).join('\n');
+  try {
+    // Save appointment via SDK (goes to localStorage OR Supabase)
+    await engine.createAppointment({
+      serviceId: state.selectedService.id,
+      serviceName: state.selectedService.name,
+      date: state.selectedDate,
+      time: state.selectedTime,
+      customerName: name,
+      customerPhone: phone,
+      note: note,
+      status: 'pending'
+    });
 
-  // Send via WhatsApp
-  const waUrl = `https://wa.me/${SHOP_CONFIG.phone}?text=${encodeURIComponent(message)}`;
-  window.open(waUrl, '_blank');
+    // Show success
+    const date = new Date(state.selectedDate + 'T00:00:00');
+    const dayNames = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
+    showSuccess(name, date, dayNames);
 
-  // Show success
-  showSuccess(name, date, dayNames);
+  } catch (err) {
+    console.error('Booking error:', err);
+    btn.disabled = false;
+    btn.textContent = 'Termin bestätigen';
+    alert('Fehler beim Speichern. Bitte versuche es erneut.');
+  }
 }
 
 function showSuccess(name, date, dayNames) {
-  // Hide all steps
   for (let i = 1; i <= 4; i++) {
     const el = $(`#step-${i}`);
     if (el) el.classList.add('hidden');
@@ -328,15 +294,12 @@ function showSuccess(name, date, dayNames) {
   `;
 
   $('#step-success').classList.remove('hidden');
-
-  // Update progress
   $$('.progress-bar .step').forEach(s => s.classList.add('completed'));
-
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // ---- Helpers ----
-function formatDate(date) {
+function formatDateISO(date) {
   const y = date.getFullYear();
   const m = String(date.getMonth() + 1).padStart(2, '0');
   const d = String(date.getDate()).padStart(2, '0');
