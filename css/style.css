@@ -164,16 +164,6 @@ img {
   line-height: 1.1;
 }
 
-.nav-logo-icon {
-  width: 40px;
-  height: 40px;
-  transition: transform var(--transition);
-}
-
-.nav-logo:hover .nav-logo-icon {
-  transform: scale(1.1);
-}
-
 .nav-logo-text {
   display: flex;
   flex-direction: column;
@@ -369,63 +359,6 @@ img {
   position: relative;
   z-index: 2;
   padding: 0 24px;
-}
-
-.hero-gold-frame {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 24px;
-}
-
-.gold-line-top,
-.gold-line-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  width: 100%;
-  max-width: 400px;
-}
-
-.gold-ornament-left,
-.gold-ornament-right {
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold));
-}
-
-.gold-ornament-right {
-  background: linear-gradient(90deg, var(--gold), transparent);
-}
-
-.gold-diamond {
-  width: 8px;
-  height: 8px;
-  background: var(--gold);
-  transform: rotate(45deg);
-  flex-shrink: 0;
-  box-shadow: 0 0 12px rgba(201, 169, 110, 0.5);
-}
-
-.gold-line-top {
-  animation: goldFadeIn 1.2s ease-out both;
-}
-
-.gold-line-bottom {
-  animation: goldFadeIn 1.2s 0.3s ease-out both;
-}
-
-@keyframes goldFadeIn {
-  from {
-    opacity: 0;
-    transform: scaleX(0);
-  }
-  to {
-    opacity: 1;
-    transform: scaleX(1);
-  }
 }
 
 .hero-title {
@@ -1383,10 +1316,6 @@ img {
     letter-spacing: 4px;
   }
 
-  .gold-line-top,
-  .gold-line-bottom {
-    max-width: 280px;
-  }
 
   .service-card {
     padding: 28px 20px;
