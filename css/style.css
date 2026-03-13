@@ -371,21 +371,61 @@ img {
   padding: 0 24px;
 }
 
-.hero-logo {
-  margin-bottom: 32px;
+.hero-gold-frame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
 }
 
-.logo-svg {
-  width: 160px;
-  height: 160px;
-  margin: 0 auto;
-  animation: logoFloat 6s ease-in-out infinite;
-  filter: drop-shadow(0 0 30px rgba(201, 169, 110, 0.2));
+.gold-line-top,
+.gold-line-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 400px;
 }
 
-@keyframes logoFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+.gold-ornament-left,
+.gold-ornament-right {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold));
+}
+
+.gold-ornament-right {
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+
+.gold-diamond {
+  width: 8px;
+  height: 8px;
+  background: var(--gold);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+  box-shadow: 0 0 12px rgba(201, 169, 110, 0.5);
+}
+
+.gold-line-top {
+  animation: goldFadeIn 1.2s ease-out both;
+}
+
+.gold-line-bottom {
+  animation: goldFadeIn 1.2s 0.3s ease-out both;
+}
+
+@keyframes goldFadeIn {
+  from {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
 }
 
 .hero-title {
@@ -1343,9 +1383,9 @@ img {
     letter-spacing: 4px;
   }
 
-  .logo-svg {
-    width: 120px;
-    height: 120px;
+  .gold-line-top,
+  .gold-line-bottom {
+    max-width: 280px;
   }
 
   .service-card {
